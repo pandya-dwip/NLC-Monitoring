@@ -29,6 +29,37 @@ This repository is being built in phases:
 
 ## Architecture
 
+Deeper, layer-specific diagrams live in [`backend/docs/ARCHITECTURE.md`](backend/docs/ARCHITECTURE.md)
+and [`frontend/docs/ARCHITECTURE.md`](frontend/docs/ARCHITECTURE.md). The system-level picture:
+
+```mermaid
+flowchart LR
+    Browser(["Operator's browser"])
+
+    subgraph FE["frontend/ -- React dashboard"]
+        Stores["Zustand stores\n(devices, mqtt, commands, metrics)"]
+        UI["Pages: Overview, Devices,\nMQTT Monitor, Commands, Charts"]
+        Stores --> UI
+    end
+
+    subgraph BE["backend/ -- primary process"]
+        API["REST API\n(Express)"]
+        Socket["Socket.IO server"]
+        FleetStore["FleetStore\n(in-memory aggregator)"]
+        Pool["Execution Pool\n(worker_threads, or\nchild_process if CLUSTER_MODE=true)"]
+        FleetStore --> API
+        FleetStore --> Socket
+        Pool -- "batched events\n(500ms flush)" --> FleetStore
+    end
+
+    Broker[("MQTT Broker\n(ThingsBoard, or the bundled\nlocal test broker)")]
+
+    Browser --> UI
+    UI -- "REST: hydrate + start/stop/\npause/resume/scale/export" --> API
+    Socket -- "push: device:status, mqtt:message,\ncommand:received, metrics:snapshot" --> Stores
+    Pool <-- "one MQTT connection per device,\nits own clientId/username/password" --> Broker
+```
+
 ```
 backend/
   src/
@@ -107,6 +138,36 @@ frontend/
    disconnects. Ramp-based strategies (`ramp-up`/`ramp-down`) compute their curve from elapsed
    wall-clock time since simulation start, so a pause/resume cycle doesn't freeze that clock.
 
+```mermaid
+sequenceDiagram
+    participant CM as ConnectionManager
+    participant DB as deviceBehavior
+    participant DC as DeviceClient
+    participant Broker as MQTT Broker
+    participant Unit as Execution unit<br/>(buffers, 500ms flush)
+    participant FS as Primary process<br/>(FleetStore)
+    participant UI as Dashboard
+
+    CM->>CM: schedulePublish() via StressModeStrategy
+    CM->>DB: renderTelemetry(state, elapsedMs)
+    DB->>DB: apply randomization + failure flags
+    DB-->>CM: telemetry payload
+    CM->>DC: publishTelemetry(payload)
+    DC->>Broker: PUBLISH v1/devices/me/telemetry
+    Broker-->>DC: PUBACK (QoS ack, latency measured)
+    DC->>Unit: emit mqtt-message + status
+    Unit->>FS: postMessage(batched events)
+    FS->>FS: applyMqttEvents / applyDeviceStates
+    FS->>UI: Socket.IO push (mqtt:message, device:status)
+
+    Broker->>DC: RPC / attribute message
+    DC->>DC: commandHandler applies side effect<br/>(e.g. manual light override)
+    DC->>Broker: PUBLISH ack/response
+    DC->>Unit: emit command + response
+    Unit->>FS: postMessage(command-received-batch)
+    FS->>UI: Socket.IO push (command:received)
+```
+
 ### `CLUSTER_MODE`
 
 By default (`CLUSTER_MODE=false`) each shard runs in a `worker_thread` -- real OS-thread
@@ -127,6 +188,20 @@ Note: `child_process.fork()` is used, not Node's `cluster` module -- `cluster` i
 sharing one listening TCP/HTTP handle across processes (round-robin load-balancing incoming
 connections), which isn't this pattern (only the primary owns the API/Socket.IO server).
 `child_process.fork()` is the correct primitive for "spawn N helper processes with an IPC channel."
+
+### Simulation lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Stopped: bootstrap() on server start
+    Stopped --> Running: POST /api/simulation/start
+    Running --> Paused: POST /api/simulation/pause<br/>(connections stay alive)
+    Paused --> Running: POST /api/simulation/resume<br/>(no reconnect)
+    Running --> Stopped: POST /api/simulation/stop<br/>(disconnects every device)
+    Paused --> Stopped: POST /api/simulation/stop
+    Running --> Running: POST /api/simulation/scale<br/>(rebuild every shard, then resume)
+    Stopped --> [*]: graceful shutdown (SIGINT/SIGTERM)
+```
 
 ## Configuration
 
