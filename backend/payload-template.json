@@ -1,0 +1,60 @@
+{
+  "template": {
+    "NLCId": "1409286893",
+    "ts": "AUTO_TIMESTAMP",
+    "values": {
+      "supplyVoltage": 230,
+      "supplyCurrent": 0,
+      "activePower": 0,
+      "CumKwh": 1500,
+      "operatingHours": 20000,
+      "actualLightState": 0,
+      "powerFactor": 0.98,
+      "LSC": 100,
+      "feedbacklightcommand": {
+        "reason": "sensor",
+        "expiration": null,
+        "state": {
+          "name": "LevelState",
+          "value": 0
+        }
+      },
+      "lampStatus": 0,
+      "PhotocellFailure": 0,
+      "supplyVoltageTooHigh": 0,
+      "supplyVoltageTooLow": 0,
+      "lampFailure": 0,
+      "PhotocellOscilation": 0,
+      "lampDriver": 0,
+      "cyclingFailure": 0,
+      "EMFault": 0,
+      "PoleCondition": 0,
+      "hwVersion": "1.1.0",
+      "swVersion": "NLC_2.1.4.0",
+      "physicalAddress": "868199056591879",
+      "communicationFailure": 0,
+      "nodeType": "SLC",
+      "RBCNT": 0
+    }
+  },
+  "randomization": {
+    "description": "Ranges/behavior applied per publish tick when ENABLE_RANDOMIZATION=true. Fields not listed here are left as-is or driven entirely by the device behavior engine (energy counters, light-state-derived current/power, etc).",
+    "ranges": {
+      "values.supplyVoltage": { "min": 215, "max": 245, "jitter": 1.5 },
+      "values.powerFactor": { "min": 0.92, "max": 0.999 },
+      "values.LSC": { "min": 80, "max": 130 }
+    },
+    "failureProbabilities": {
+      "values.PhotocellFailure": 0.002,
+      "values.supplyVoltageTooHigh": 0.001,
+      "values.supplyVoltageTooLow": 0.001,
+      "values.lampFailure": 0.001,
+      "values.PhotocellOscilation": 0.0015,
+      "values.lampDriver": 0.001,
+      "values.cyclingFailure": 0.0008,
+      "values.EMFault": 0.0005,
+      "values.PoleCondition": 0.0005,
+      "values.communicationFailure": 0.001
+    }
+  }
+}

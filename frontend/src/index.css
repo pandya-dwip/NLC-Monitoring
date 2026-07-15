@@ -1,0 +1,41 @@
+@import '@heroui/styles';
+
+@theme {
+  --font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, Consolas, monospace;
+}
+
+/* Validated categorical chart series colors (dataviz skill reference palette,
+   slots 1/2 -- blue/green). Single-series charts use --color-accent instead. */
+:root {
+  --chart-series-1: #2a78d6;
+  --chart-series-2: #008300;
+}
+.dark {
+  --chart-series-1: #3987e5;
+  --chart-series-2: #008300;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+/* Thin scrollbars for the high-density live tables/monitor panels. */
+.thin-scrollbar {
+  scrollbar-width: thin;
+}
+.thin-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 9999px;
+}
