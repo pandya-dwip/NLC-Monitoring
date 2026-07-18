@@ -88,11 +88,15 @@ export function applyCommandAndBuildResponse(
     if (command.method === 'setLightState' || command.method === 'setDimLevel') {
       const value = extractLightValue(params);
       if (value !== null) {
-        const light = value > 0 ? 1 : 0;
+        // setLightState is a plain on/off toggle (full brightness when on); setDimLevel
+        // carries an actual 0-100 brightness percentage.
+        const dimLevel = command.method === 'setDimLevel' ? clamp(value, 0, 100) : value > 0 ? 100 : 0;
+        const light = dimLevel > 0 ? 1 : 0;
         state.lightState = light;
+        state.dimLevel = dimLevel;
         // Overrides the day/night schedule until it expires, mirroring the
         // payload template's own feedbacklightcommand.expiration semantics.
-        state.manualLightOverride = { value: light, expiresAt: Date.now() + MANUAL_OVERRIDE_MS };
+        state.manualLightOverride = { value: light, dimLevel, expiresAt: Date.now() + MANUAL_OVERRIDE_MS };
       }
     }
 
@@ -106,6 +110,10 @@ export function applyCommandAndBuildResponse(
   }
 
   return { responseTopic: null, responsePayload: null };
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
 }
 
 function extractLightValue(params: unknown): number | null {

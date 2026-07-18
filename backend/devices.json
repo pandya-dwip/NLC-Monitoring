@@ -1,27 +1,3002 @@
 [
   {
-    "clientId": "869098073738340",
+    "clientId": "NLC-0001",
     "userName": "NLC",
-    "password": "cimcon"
+    "password": "cimcon",
+    "ratedWattage": 150
   },
   {
-    "clientId": "866356069917978",
+    "clientId": "NLC-0002",
     "userName": "NLC",
-    "password": "cimcon"
+    "password": "cimcon",
+    "ratedWattage": 60
   },
   {
-    "clientId": "869098073764064",
+    "clientId": "NLC-0003",
     "userName": "NLC",
-    "password": "cimcon"
+    "password": "cimcon",
+    "ratedWattage": 90
   },
   {
-    "clientId": "869098073751962",
+    "clientId": "NLC-0004",
     "userName": "NLC",
-    "password": "cimcon"
+    "password": "cimcon",
+    "ratedWattage": 120
   },
   {
-    "clientId": "869098073742938",
+    "clientId": "NLC-0005",
     "userName": "NLC",
-    "password": "cimcon"
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0006",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0007",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0008",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0009",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0010",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0011",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0012",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0013",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0014",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0015",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0016",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0017",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0018",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0019",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0020",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0021",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0022",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0023",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0024",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0025",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0026",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0027",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0028",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0029",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0030",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0031",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0032",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0033",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0034",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0035",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0036",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0037",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0038",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0039",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0040",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0041",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0042",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0043",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0044",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0045",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0046",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0047",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0048",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0049",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0050",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0051",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0052",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0053",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0054",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0055",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0056",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0057",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0058",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0059",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0060",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0061",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0062",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0063",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0064",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0065",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0066",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0067",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0068",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0069",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0070",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0071",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0072",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0073",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0074",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0075",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0076",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0077",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0078",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0079",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0080",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0081",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0082",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0083",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0084",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0085",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0086",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0087",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0088",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0089",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0090",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0091",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0092",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0093",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0094",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0095",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0096",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0097",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0098",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0099",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0100",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0101",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0102",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0103",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0104",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0105",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0106",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0107",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0108",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0109",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0110",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0111",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0112",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0113",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0114",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0115",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0116",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0117",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0118",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0119",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0120",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0121",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0122",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0123",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0124",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0125",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0126",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0127",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0128",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0129",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0130",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0131",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0132",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0133",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0134",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0135",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0136",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0137",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0138",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0139",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0140",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0141",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0142",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0143",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0144",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0145",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0146",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0147",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0148",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0149",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0150",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0151",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0152",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0153",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0154",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0155",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0156",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0157",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0158",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0159",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0160",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0161",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0162",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0163",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0164",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0165",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0166",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0167",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0168",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0169",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0170",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0171",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0172",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0173",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0174",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0175",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0176",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0177",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0178",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0179",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0180",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0181",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0182",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0183",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0184",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0185",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0186",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0187",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0188",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0189",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0190",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0191",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0192",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0193",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0194",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0195",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0196",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0197",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0198",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0199",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0200",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0201",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0202",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0203",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0204",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0205",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0206",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0207",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0208",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0209",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0210",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0211",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0212",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0213",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0214",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0215",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0216",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0217",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0218",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0219",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0220",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0221",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0222",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0223",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0224",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0225",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0226",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0227",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0228",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0229",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0230",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0231",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0232",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0233",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0234",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0235",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0236",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0237",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0238",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0239",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0240",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0241",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0242",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0243",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0244",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0245",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0246",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0247",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0248",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0249",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0250",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0251",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0252",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0253",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0254",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0255",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0256",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0257",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0258",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0259",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0260",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0261",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0262",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0263",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0264",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0265",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0266",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0267",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0268",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0269",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0270",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0271",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0272",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0273",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0274",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0275",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0276",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0277",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0278",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0279",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0280",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0281",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0282",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0283",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0284",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0285",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0286",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0287",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0288",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0289",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0290",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0291",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0292",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0293",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0294",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0295",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0296",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0297",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0298",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0299",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0300",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0301",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0302",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0303",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0304",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0305",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0306",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0307",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0308",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0309",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0310",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0311",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0312",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0313",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0314",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0315",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0316",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0317",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0318",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0319",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0320",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0321",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0322",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0323",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0324",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0325",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0326",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0327",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0328",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0329",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0330",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0331",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0332",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0333",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0334",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0335",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0336",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0337",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0338",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0339",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0340",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0341",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0342",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0343",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0344",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0345",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0346",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0347",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0348",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0349",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0350",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0351",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0352",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0353",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0354",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0355",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0356",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0357",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0358",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0359",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0360",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0361",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0362",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0363",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0364",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0365",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0366",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0367",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0368",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0369",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0370",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0371",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0372",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0373",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0374",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0375",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0376",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0377",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0378",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0379",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0380",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0381",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0382",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0383",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0384",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0385",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0386",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0387",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0388",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0389",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0390",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0391",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0392",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0393",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0394",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0395",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0396",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0397",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0398",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0399",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0400",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0401",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0402",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0403",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0404",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0405",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0406",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0407",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0408",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0409",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0410",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0411",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0412",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0413",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0414",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0415",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0416",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0417",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0418",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0419",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0420",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0421",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0422",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0423",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0424",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0425",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0426",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0427",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0428",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0429",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0430",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0431",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0432",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0433",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0434",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0435",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0436",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0437",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0438",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0439",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0440",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0441",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0442",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0443",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0444",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0445",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0446",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0447",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0448",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0449",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0450",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0451",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0452",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0453",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0454",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0455",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0456",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0457",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0458",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0459",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0460",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0461",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0462",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0463",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0464",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0465",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0466",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0467",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0468",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0469",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0470",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0471",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0472",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0473",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0474",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 60
+  },
+  {
+    "clientId": "NLC-0475",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0476",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
+  },
+  {
+    "clientId": "NLC-0477",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0478",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0479",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0480",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0481",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0482",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0483",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0484",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0485",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0486",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0487",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0488",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 30
+  },
+  {
+    "clientId": "NLC-0489",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0490",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0491",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0492",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 100
+  },
+  {
+    "clientId": "NLC-0493",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0494",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 40
+  },
+  {
+    "clientId": "NLC-0495",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 120
+  },
+  {
+    "clientId": "NLC-0496",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 250
+  },
+  {
+    "clientId": "NLC-0497",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 90
+  },
+  {
+    "clientId": "NLC-0498",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 400
+  },
+  {
+    "clientId": "NLC-0499",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 70
+  },
+  {
+    "clientId": "NLC-0500",
+    "userName": "NLC",
+    "password": "cimcon",
+    "ratedWattage": 150
   }
 ]

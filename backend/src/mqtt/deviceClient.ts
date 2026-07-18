@@ -19,9 +19,10 @@ export interface MqttMessageEvent {
   payloadPreview: string;
 }
 
+const ATTRIBUTES_TOPIC = 'v1/devices/me/attributes';
 const STANDARD_SUBSCRIBE_TOPICS = [
   'v1/devices/me/rpc/request/+',
-  'v1/devices/me/attributes',
+  ATTRIBUTES_TOPIC,
   'v1/devices/me/attributes/response/+',
 ];
 
@@ -85,6 +86,9 @@ export class DeviceClient extends EventEmitter {
     this.emitStatus();
     const topics = [...STANDARD_SUBSCRIBE_TOPICS, ...config.mqtt.extraSubscribeTopics];
     this.client?.subscribe(topics, { qos: config.mqtt.qos });
+    // Static device characteristic (not a telemetry reading) -- the downstream
+    // EnergySavingsService needs this attribute to compute consumption/savings.
+    this.publish(ATTRIBUTES_TOPIC, JSON.stringify({ Wattage: this.state.ratedWattage }), false);
   }
 
   private handleReconnect(): void {

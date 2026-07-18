@@ -7,6 +7,8 @@
       "supplyCurrent": 0,
       "activePower": 0,
       "CumKwh": 1500,
+      "cum_kWh": 1500,
+      "Daily_kWh": 0,
       "operatingHours": 20000,
       "actualLightState": 0,
       "powerFactor": 0.98,
@@ -29,6 +31,11 @@
       "cyclingFailure": 0,
       "EMFault": 0,
       "PoleCondition": 0,
+      "RTCFault": 0,
+      "relayFailure": 0,
+      "comm_Fault": 0,
+      "last_gasp": 0,
+      "lampUnexpectedOn": 0,
       "hwVersion": "1.1.0",
       "swVersion": "NLC_2.1.4.0",
       "physicalAddress": "868199056591879",
@@ -40,9 +47,19 @@
   "randomization": {
     "description": "Ranges/behavior applied per publish tick when ENABLE_RANDOMIZATION=true. Fields not listed here are left as-is or driven entirely by the device behavior engine (energy counters, light-state-derived current/power, etc).",
     "ranges": {
-      "values.supplyVoltage": { "min": 215, "max": 245, "jitter": 1.5 },
-      "values.powerFactor": { "min": 0.92, "max": 0.999 },
-      "values.LSC": { "min": 80, "max": 130 }
+      "values.supplyVoltage": {
+        "min": 215,
+        "max": 245,
+        "jitter": 1.5
+      },
+      "values.powerFactor": {
+        "min": 0.92,
+        "max": 0.999
+      },
+      "values.LSC": {
+        "min": 80,
+        "max": 130
+      }
     },
     "failureProbabilities": {
       "values.PhotocellFailure": 0.002,
@@ -54,7 +71,12 @@
       "values.cyclingFailure": 0.0008,
       "values.EMFault": 0.0005,
       "values.PoleCondition": 0.0005,
-      "values.communicationFailure": 0.001
+      "values.communicationFailure": 0.001,
+      "values.RTCFault": 0.0005,
+      "values.relayFailure": 0.001,
+      "values.comm_Fault": 0.001,
+      "values.last_gasp": 0.0005,
+      "values.lampUnexpectedOn": 0.0008
     }
   }
 }
