@@ -35,6 +35,17 @@ function readDevices(filePath: string): DeviceCredentials[] {
   return parsed as DeviceCredentials[];
 }
 
+/** --start/--end are 1-indexed and inclusive, matching how you'd say "device 501 to the end". */
+function resolveRange(totalCount: number): { start: number; end: number } {
+  const argAfter = (flag: string): number | undefined => {
+    const idx = process.argv.indexOf(flag);
+    return idx !== -1 ? Number(process.argv[idx + 1]) : undefined;
+  };
+  const start = argAfter('--start') ?? 1;
+  const end = argAfter('--end') ?? totalCount;
+  return { start, end };
+}
+
 async function login(page: Page): Promise<void> {
   await page.goto(`${config.baseUrl}/login`);
   await page.getByRole('textbox', { name: 'Username (email)' }).fill(config.username);
@@ -95,7 +106,14 @@ async function captureFailureScreenshot(page: Page, clientId: string): Promise<s
 }
 
 async function main(): Promise<void> {
-  const devices = readDevices(config.devicesJsonPath);
+  const allDevices = readDevices(config.devicesJsonPath);
+  const { start, end } = resolveRange(allDevices.length);
+  const devices = allDevices.slice(start - 1, end);
+  if (devices.length === 0) {
+    throw new Error(`--start ${start} / --end ${end} selected 0 devices out of ${allDevices.length}.`);
+  }
+  console.log(`Configuring devices ${start}-${end} of ${allDevices.length} (${devices.length} device(s)).`);
+
   const browser = await chromium.launch({ headless: config.headless });
   const page = await browser.newContext().then((context) => context.newPage());
 
