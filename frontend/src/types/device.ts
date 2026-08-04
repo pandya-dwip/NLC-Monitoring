@@ -31,6 +31,13 @@ export interface DeviceState {
   swVersion: string;
 }
 
+/** One recorded publish for a device's light-state history (Device History page). */
+export interface LightHistoryEntry {
+  ts: number;
+  lightState: 0 | 1;
+  dimLevel: number;
+}
+
 export type LightMode = 'on' | 'dim' | 'off';
 
 /** Matches the exact ON/OFF/DIM contract the ThingsBoard dashboard widgets use. */

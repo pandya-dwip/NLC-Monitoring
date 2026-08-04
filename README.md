@@ -264,8 +264,16 @@ values. Key groups:
 `ratedWattage` (falls back to 70W if absent) drives that device's simulated power/current draw --
 see "Generating `devices.json` from a CSV" under Device Provisioning. It supports any number of
 devices; how many actually run is controlled purely by `DEVICE_LIMIT` and `DEVICE_SELECTION_MODE`
-(sequential/random/shuffle/round-robin/random-batch) -- no code changes needed to go from 10 to
-10,000+ devices.
+-- no code changes needed to go from 10 to 10,000+ devices:
+
+| `DEVICE_SELECTION_MODE` | Behavior |
+|---|---|
+| `sequential` (default) / `round-robin` | Preserves `devices.json`'s order as-is (round-robin *distribution* across workers happens separately, regardless of this setting -- see `shardDevices`). |
+| `random` / `shuffle` | Shuffles the full device list once at load. |
+| `random-batch` | Chunks the list into `DEVICE_BATCH_SIZE`-sized groups, shuffles the *order of the groups*, but keeps each group's internal order -- for staggering large blocks of devices together rather than fully randomizing every device's startup slot. |
+
+`DEVICE_LIMIT` then truncates the (possibly reordered) list to however many should actually run
+this session -- `0` means no limit, run everything.
 
 `payload-template.json` holds the telemetry shape (with `"ts": "AUTO_TIMESTAMP"` resolved at
 publish time) plus a `randomization` block of numeric ranges/jitter and failure probabilities
@@ -359,7 +367,16 @@ npm run dev             # Vite dev server on http://localhost:5173
 Open `http://localhost:5173` with the backend (and a broker) running. The dashboard connects to
 Socket.IO immediately (see the "Live" indicator in the header) and REST-hydrates the device table,
 MQTT monitor, command panel, and metrics before the socket's own initial snapshot arrives. No
-polling anywhere -- every panel updates by socket push.
+polling anywhere -- every panel updates by socket push. Six pages, all in the header nav:
+
+| Page | What's on it |
+|---|---|
+| **Overview** | KPI stat tiles (connected/disconnected/publishing devices, msgs/sec, avg latency, commands received, RPC requests, publish success/failure, reconnects, dropped messages, MQTT throughput, CPU/RAM) plus 3 mini time-series charts, all from `useMetricsStore`'s live snapshot history. |
+| **Devices** | Full device table -- status, light mode (On/Dim NN%/Off), override expiry, voltage/current/power, rated wattage, daily/cumulative kWh, firmware, connection counters. Filterable by Light Mode and Status, plus free-text search. |
+| **Device History** | Master-detail: pick any device from a searchable list, see all its current stats plus recent MQTT/command activity (see the caveat under Roadmap about this being a live window, not a persisted log). |
+| **MQTT Monitor** | A live, Wireshark-style table of every MQTT publish/receive across the fleet (topic, direction, size, latency, status, payload preview). |
+| **Commands** | Every RPC/attribute command received, with its response (if any) and a plain-English `stateChange` summary of what it actually changed on the device -- both payload and response expand inline for full inspection. |
+| **Charts** | 10 full time-series charts: connected devices, MQTT throughput, messages/sec, avg latency, publish rate, command rate, CPU%, memory, cumulative reconnects, cumulative publish failures. |
 
 Production build: `npm run build` (outputs to `frontend/dist/`), then serve it with any static
 file server pointed at the deployed backend's `VITE_API_URL`/`VITE_SOCKET_URL`.
@@ -373,7 +390,12 @@ file server pointed at the deployed backend's `VITE_API_URL`/`VITE_SOCKET_URL`.
   traffic/command history (commands include the correlated `response` payload, if any, and a
   `stateChange` diff of what the command actually changed on the device)
 - `POST http://localhost:4000/api/simulation/start|stop|pause|resume|scale`
-- `GET http://localhost:4000/api/export/csv|json|metrics|logs`
+- `GET http://localhost:4000/api/export/csv|json|metrics|logs` (also reachable via the dashboard
+  header's Export buttons) -- `csv` is a flat device-table snapshot (respects `CSV_EXPORT`);
+  `json` is a full snapshot (`metrics` + `devices` + last 500 MQTT events + last 200 commands,
+  respects `JSON_EXPORT`); `metrics` is just the metrics snapshot on its own; `logs` concatenates
+  all five `logs/*.log` files into one download (respects `ENABLE_LOGGING`) -- each 403s with an
+  explanatory error if its feature flag is off.
 - Socket.IO on `ws://localhost:4001` -- subscribe to `device:status`, `mqtt:message`,
   `command:received`, `metrics:snapshot` (push-only, no polling)
 - Structured logs land in `backend/logs/{mqtt,commands,errors,system,performance}.log`

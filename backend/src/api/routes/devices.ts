@@ -26,3 +26,8 @@ devicesRouter.get('/api/devices', (req, res) => {
 
   res.json({ items, total, page, pageSize });
 });
+
+devicesRouter.get('/api/devices/:clientId/history', (req, res) => {
+  const limit = Math.min(200, Math.max(1, Number(req.query['limit']) || 200));
+  res.json({ items: fleetStore.getLightHistory(req.params['clientId']!, limit) });
+});

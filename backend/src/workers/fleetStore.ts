@@ -1,7 +1,7 @@
 import os from 'node:os';
 import { EventEmitter } from 'node:events';
 import { config } from '../config';
-import type { DeviceState } from '../models/device';
+import type { DeviceState, LightHistoryEntry } from '../models/device';
 import type { MqttMessageEvent } from '../mqtt/deviceClient';
 import type { CommandReceivedEvent } from '../models/workerMessages';
 import type { MetricsSnapshot } from '../models/metrics';
@@ -9,6 +9,7 @@ import type { MetricsSnapshot } from '../models/metrics';
 const MQTT_RING_BUFFER_SIZE = 2000;
 const COMMAND_RING_BUFFER_SIZE = 500;
 const LATENCY_SAMPLE_WINDOW = 500;
+const LIGHT_HISTORY_PER_DEVICE = 200;
 
 interface Totals {
   messagesSent: number;
@@ -29,6 +30,7 @@ interface Totals {
  */
 export class FleetStore extends EventEmitter {
   private readonly devices = new Map<string, DeviceState>();
+  private readonly lightHistory = new Map<string, LightHistoryEntry[]>();
   private mqttRingBuffer: MqttMessageEvent[] = [];
   private commandRingBuffer: CommandReceivedEvent[] = [];
   private readonly workerStatus = new Map<number, { deviceCount: number; alive: boolean }>();
@@ -72,6 +74,11 @@ export class FleetStore extends EventEmitter {
 
   applyDeviceStates(states: DeviceState[]): void {
     for (const state of states) {
+      const previous = this.devices.get(state.clientId);
+      const publishedAt = state.lastPublishAt;
+      if (publishedAt !== null && publishedAt !== (previous?.lastPublishAt ?? null)) {
+        this.recordLightHistory(state, publishedAt);
+      }
       this.devices.set(state.clientId, state);
       if (state.lastLatencyMs !== null && config.features.latencyTracking) {
         this.latencySamples.push(state.lastLatencyMs);
@@ -81,6 +88,17 @@ export class FleetStore extends EventEmitter {
       }
     }
     this.emit('device:status', states);
+  }
+
+  /** One entry per actual publish (not per 500ms status-batch tick) -- see applyDeviceStates. */
+  private recordLightHistory(state: DeviceState, publishedAt: number): void {
+    const entry: LightHistoryEntry = { ts: publishedAt, lightState: state.lightState, dimLevel: state.dimLevel };
+    const history = this.lightHistory.get(state.clientId) ?? [];
+    history.push(entry);
+    if (history.length > LIGHT_HISTORY_PER_DEVICE) {
+      history.splice(0, history.length - LIGHT_HISTORY_PER_DEVICE);
+    }
+    this.lightHistory.set(state.clientId, history);
   }
 
   applyMqttEvents(events: MqttMessageEvent[], droppedCount: number): void {
@@ -130,8 +148,13 @@ export class FleetStore extends EventEmitter {
     return this.commandRingBuffer.slice(-limit);
   }
 
+  getLightHistory(clientId: string, limit = LIGHT_HISTORY_PER_DEVICE): LightHistoryEntry[] {
+    return (this.lightHistory.get(clientId) ?? []).slice(-limit);
+  }
+
   reset(): void {
     this.devices.clear();
+    this.lightHistory.clear();
     this.mqttRingBuffer = [];
     this.commandRingBuffer = [];
     this.workerStatus.clear();

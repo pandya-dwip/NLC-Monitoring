@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import { Radio, Terminal } from 'lucide-react';
+import { History, Radio, Terminal } from 'lucide-react';
 import { Card, Input } from '@heroui/react';
 import { StatTile } from '../components/StatTile';
 import { ConnectionStatusBadge } from '../components/ConnectionStatusBadge';
@@ -8,6 +8,7 @@ import { LightModeBadge } from '../components/LightModeBadge';
 import { useDeviceList } from '../store/useDeviceStore';
 import { useMqttMonitorStore } from '../store/useMqttMonitorStore';
 import { useCommandStore } from '../store/useCommandStore';
+import { useDeviceLightHistoryQuery } from '../hooks/useDeviceLightHistoryQuery';
 
 const RECENT_LIMIT = 30;
 
@@ -29,6 +30,13 @@ export function DeviceHistoryPage() {
   }, [devices, search]);
 
   const selected = useMemo(() => devices.find((d) => d.clientId === selectedId) ?? null, [devices, selectedId]);
+
+  // Real per-device history from the backend (FleetStore.getLightHistory) -- one entry per
+  // actual publish for this specific device, unlike the shared fleet-wide buffers below.
+  const { data: lightHistoryData, isLoading: lightHistoryLoading } = useDeviceLightHistoryQuery(
+    selected?.clientId ?? null,
+  );
+  const lightHistory = useMemo(() => [...(lightHistoryData?.items ?? [])].reverse(), [lightHistoryData]);
 
   // These come from the same live-activity ring buffers that feed the MQTT Monitor / Commands
   // pages -- a recent-activity window across the whole fleet, not a persisted per-device log.
@@ -133,6 +141,45 @@ export function DeviceHistoryPage() {
               <StatTile label="Last Publish" value={formatTime(selected.lastPublishAt)} />
               <StatTile label="Last Command" value={formatTime(selected.lastCommandAt)} />
             </div>
+
+            <Card.Root className="p-4">
+              <Card.Header className="p-0 pb-2">
+                <Card.Title className="flex items-center gap-2 text-sm font-medium text-muted">
+                  <History className="h-4 w-4" aria-hidden /> Light State History
+                </Card.Title>
+              </Card.Header>
+              <Card.Content className="p-0">
+                {lightHistoryLoading ? (
+                  <p className="text-sm text-muted">Loading...</p>
+                ) : lightHistory.length === 0 ? (
+                  <p className="text-sm text-muted">
+                    No publishes recorded for this device yet -- history is captured going forward
+                    from when the backend started (not backfilled from before it was running).
+                  </p>
+                ) : (
+                  <div className="thin-scrollbar max-h-64 overflow-y-auto rounded-md border border-border">
+                    <table className="w-full border-collapse text-sm">
+                      <thead className="bg-surface-secondary text-left">
+                        <tr>
+                          <th className="px-2 py-1 font-medium text-muted">Time</th>
+                          <th className="px-2 py-1 font-medium text-muted">Light State</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {lightHistory.map((h, i) => (
+                          <tr key={i} className="border-t border-separator">
+                            <td className="px-2 py-1 tabular-nums">{dayjs(h.ts).format('HH:mm:ss')}</td>
+                            <td className="px-2 py-1">
+                              <LightModeBadge device={h} />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </Card.Content>
+            </Card.Root>
 
             <Card.Root className="p-4">
               <Card.Header className="p-0 pb-2">

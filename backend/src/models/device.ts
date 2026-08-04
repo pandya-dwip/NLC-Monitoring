@@ -38,6 +38,13 @@ export interface DeviceCredentials {
 
 export type ConnectionStatus = 'connecting' | 'connected' | 'disconnected' | 'error' | 'offline';
 
+/** One recorded publish for a device's light-state history (Device History page). */
+export interface LightHistoryEntry {
+  ts: number;
+  lightState: 0 | 1;
+  dimLevel: number;
+}
+
 /** Mutable simulated physical/operational state for one device, evolved every publish tick. */
 export interface DeviceState {
   clientId: string;
@@ -62,7 +69,7 @@ export interface DeviceState {
   messagesReceived: number;
   publishFailures: number;
   errors: number;
-  /** Set by an RPC/dimming command; overrides the day/night light schedule until it expires. */
+  /** Set by an RPC/dimming command; overrides the fleet's on/dim/off assignment until it expires. */
   manualLightOverride: { value: 0 | 1; dimLevel: number; expiresAt: number } | null;
   lastCurrentAmps: number;
   lastActivePowerW: number;
