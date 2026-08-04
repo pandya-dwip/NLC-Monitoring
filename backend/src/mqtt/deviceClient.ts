@@ -5,6 +5,7 @@ import { createInitialDeviceState } from '../models/device';
 import type { DeviceCredentials, DeviceState } from '../models/device';
 import type { IncomingCommand } from '../models/command';
 import { applyCommandAndBuildResponse, parseIncomingMessage } from '../rpc/commandHandler';
+import { renderOfflinePayload } from '../simulator/deviceBehavior';
 
 export interface MqttMessageEvent {
   clientId: string;
@@ -39,7 +40,7 @@ function toPayloadPreview(body: string | Buffer): string {
  * Wraps a single independent MQTT.js connection for one simulated device,
  * using that device's own clientId/username/password (no shared client).
  * Emits: 'status' (DeviceState), 'mqtt-message' (MqttMessageEvent),
- * 'command' (IncomingCommand, latencyMs, response, stateChange).
+ * 'command' (IncomingCommand, latencyMs, response, stateChange, forcePublish).
  */
 export class DeviceClient extends EventEmitter {
   readonly state: DeviceState;
@@ -74,6 +75,25 @@ export class DeviceClient extends EventEmitter {
 
   disconnect(): void {
     this.client?.end(true);
+  }
+
+  /** Manual disconnect (Device History page / API) -- mqtt.js does not auto-reconnect after
+   * an explicit end(), so this stays disconnected until manualReconnect() is called. Reports
+   * light-off + a communication failure as its last known values before actually closing
+   * (graceful end(false), not force -- so that final publish has a chance to flush first). */
+  manualDisconnect(): void {
+    this.state.manuallyDisconnected = true;
+    if (this.client && this.state.status === 'connected') {
+      const offlinePayload = renderOfflinePayload(this.state);
+      this.publish(config.mqtt.topic, JSON.stringify(offlinePayload), config.mqtt.retain);
+    }
+    this.client?.end(false);
+    this.emitStatus();
+  }
+
+  manualReconnect(): void {
+    this.state.manuallyDisconnected = false;
+    this.connect();
   }
 
   publishTelemetry(payload: unknown): void {
@@ -141,11 +161,14 @@ export class DeviceClient extends EventEmitter {
     const command = parseIncomingMessage(this.creds.clientId, topic, payload);
     if (!command) return;
 
-    const { responseTopic, responsePayload, stateChange } = applyCommandAndBuildResponse(command, this.state);
+    const { responseTopic, responsePayload, stateChange, forcePublish } = applyCommandAndBuildResponse(
+      command,
+      this.state,
+    );
     const latencyMs = Date.now() - command.receivedAt;
     const response =
       responseTopic && responsePayload ? { topic: responseTopic, payload: responsePayload } : null;
-    this.emit('command', command satisfies IncomingCommand, latencyMs, response, stateChange);
+    this.emit('command', command satisfies IncomingCommand, latencyMs, response, stateChange, forcePublish);
 
     if (response) {
       this.publish(response.topic, JSON.stringify(response.payload), false);

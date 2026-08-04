@@ -76,7 +76,13 @@ export function parseIncomingMessage(
 export function applyCommandAndBuildResponse(
   command: IncomingCommand,
   state: DeviceState,
-): { responseTopic: string | null; responsePayload: unknown; stateChange: CommandStateChange | null } {
+): {
+  responseTopic: string | null;
+  responsePayload: unknown;
+  stateChange: CommandStateChange | null;
+  /** True if the device should immediately publish fresh telemetry (e.g. a "read data" request), outside its normal schedule. */
+  forcePublish: boolean;
+} {
   state.lastCommandAt = Date.now();
   const before = {
     lightState: state.lightState,
@@ -86,6 +92,7 @@ export function applyCommandAndBuildResponse(
 
   let responseTopic: string | null = null;
   let responsePayload: unknown = null;
+  let forcePublish = false;
 
   if (command.kind === 'rpc') {
     const params =
@@ -112,9 +119,18 @@ export function applyCommandAndBuildResponse(
     responsePayload = { status: 'ok', method: command.method, appliedAt: Date.now() };
   } else if (command.kind === 'attribute-update') {
     applyAttributeLightCommand(command.payload, state);
+    forcePublish = isGetDataRequest(command.payload);
   }
 
-  return { responseTopic, responsePayload, stateChange: buildStateChange(before, state) };
+  return { responseTopic, responsePayload, stateChange: buildStateChange(before, state), forcePublish };
+}
+
+/** ThingsBoard's "read data now" shared attribute: {"Invoke":{"reason":"get-data", ...}}. */
+function isGetDataRequest(payload: unknown): boolean {
+  if (!payload || typeof payload !== 'object') return false;
+  const invoke = (payload as Record<string, unknown>)['Invoke'];
+  if (!invoke || typeof invoke !== 'object') return false;
+  return (invoke as Record<string, unknown>)['reason'] === 'get-data';
 }
 
 function buildStateChange(
@@ -148,8 +164,9 @@ function buildStateChange(
  * ("targetCommand" carries the same payload; targetLightCommand takes precedence
  * when both are present). A LevelState value is a 0-100 dim percentage; an
  * IntegerState value of -1 is the widget's "cancel override" sentinel. Anything
- * else (get-data Invoke, currentTime sync, ...) is a shared attribute we don't
- * act on and is left alone.
+ * else (currentTime sync, ...) is a shared attribute we don't act on and is left alone.
+ * A "read data" request ({"Invoke":{"reason":"get-data"}}) doesn't match this shape either
+ * (no light state to apply) -- it's handled separately via forcePublish, see caller.
  */
 function applyAttributeLightCommand(payload: unknown, state: DeviceState): void {
   if (!payload || typeof payload !== 'object') return;

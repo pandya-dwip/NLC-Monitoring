@@ -77,6 +77,17 @@ export class BaseExecutionPool {
     systemLogger.info({ label: this.label }, 'Simulation resumed');
   }
 
+  /** Broadcasts to every unit; whichever one owns the device (if any) acts on it. */
+  disconnectDevice(clientId: string): void {
+    this.broadcast({ type: 'disconnect-device', clientId });
+    systemLogger.info({ label: this.label, clientId }, 'Device manually disconnected');
+  }
+
+  reconnectDevice(clientId: string): void {
+    this.broadcast({ type: 'reconnect-device', clientId });
+    systemLogger.info({ label: this.label, clientId }, 'Device manually reconnected');
+  }
+
   isRunning(): boolean {
     return this.running;
   }

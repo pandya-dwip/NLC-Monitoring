@@ -96,12 +96,48 @@ export class ConnectionManager extends EventEmitter {
     if (!this.running || !this.paused) return;
     this.paused = false;
     for (const client of this.clients.values()) {
+      if (client.state.manuallyDisconnected) continue;
       this.schedulePublish(client);
     }
   }
 
   getStates(): DeviceState[] {
     return [...this.clients.values()].map((c) => c.state);
+  }
+
+  /** Returns false if this unit doesn't own `clientId` (a different shard does). */
+  disconnectDevice(clientId: string): boolean {
+    const client = this.clients.get(clientId);
+    if (!client) return false;
+    const timer = this.publishTimers.get(clientId);
+    if (timer) {
+      clearTimeout(timer);
+      this.publishTimers.delete(clientId);
+    }
+    client.manualDisconnect();
+    return true;
+  }
+
+  /** No-op (returns false) if this unit doesn't own the device, or it wasn't manually disconnected. */
+  reconnectDevice(clientId: string): boolean {
+    const client = this.clients.get(clientId);
+    if (!client || !client.state.manuallyDisconnected) return false;
+
+    // Publish immediately once the reconnect actually completes, rather than making the
+    // dashboard wait for the next scheduled tick -- "values should continue flowing" as soon
+    // as it's back, not up to PUBLISH_INTERVAL_MS later. One-shot: only fires for this
+    // manual reconnect, not for every future connect/reconnect of this client.
+    const onStatus = (state: DeviceState): void => {
+      if (state.status !== 'connected') return;
+      client.off('status', onStatus);
+      const payload = renderTelemetry(client.state, 0, config.devices.enableRandomization);
+      client.publishTelemetry(payload);
+    };
+    client.on('status', onStatus);
+
+    client.manualReconnect();
+    this.schedulePublish(client);
+    return true;
   }
 
   private startDevice(creds: DeviceCredentials): void {
@@ -117,7 +153,17 @@ export class ConnectionManager extends EventEmitter {
         latencyMs: number,
         response: { topic: string; payload: unknown } | null,
         stateChange: CommandStateChange | null,
-      ) => this.emit('command', cmd, latencyMs, response, stateChange),
+        forcePublish: boolean,
+      ) => {
+        this.emit('command', cmd, latencyMs, response, stateChange);
+        // "Read data now" request -- publish immediately instead of making it wait for the
+        // next scheduled tick. elapsedMs=0 so this ad-hoc publish doesn't double-count energy
+        // accrual; it does not reschedule/replace the next regular tick.
+        if (forcePublish) {
+          const payload = renderTelemetry(client.state, 0, config.devices.enableRandomization);
+          client.publishTelemetry(payload);
+        }
+      },
     );
 
     client.connect();

@@ -50,6 +50,8 @@ export interface DeviceState {
   clientId: string;
   nlcId: string;
   status: ConnectionStatus;
+  /** True after a manual disconnect (Device History page / API) until explicitly reconnected. */
+  manuallyDisconnected: boolean;
   lightState: 0 | 1;
   /** Brightness percentage (0-100). 100 = full ON, 0 = OFF, 1-99 = dimmed. Drives actualLightState. */
   dimLevel: number;
@@ -82,6 +84,7 @@ export function createInitialDeviceState(creds: DeviceCredentials, nlcId: string
     clientId: creds.clientId,
     nlcId,
     status: 'connecting',
+    manuallyDisconnected: false,
     lightState: 0,
     dimLevel: 0,
     cumKwh: 1500 + Math.random() * 500,

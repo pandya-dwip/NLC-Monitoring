@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { fleetStore } from '../../workers/fleetStore';
+import { pool } from '../../workers/pool';
 
 export const devicesRouter = Router();
 
@@ -30,4 +31,29 @@ devicesRouter.get('/api/devices', (req, res) => {
 devicesRouter.get('/api/devices/:clientId/history', (req, res) => {
   const limit = Math.min(200, Math.max(1, Number(req.query['limit']) || 200));
   res.json({ items: fleetStore.getLightHistory(req.params['clientId']!, limit) });
+});
+
+devicesRouter.post('/api/devices/:clientId/disconnect', (req, res) => {
+  const clientId = req.params['clientId']!;
+  if (!fleetStore.getDevices().some((d) => d.clientId === clientId)) {
+    res.status(404).json({ error: `Unknown device: ${clientId}` });
+    return;
+  }
+  pool.disconnectDevice(clientId);
+  res.json({ ok: true });
+});
+
+devicesRouter.post('/api/devices/:clientId/reconnect', (req, res) => {
+  const clientId = req.params['clientId']!;
+  const device = fleetStore.getDevices().find((d) => d.clientId === clientId);
+  if (!device) {
+    res.status(404).json({ error: `Unknown device: ${clientId}` });
+    return;
+  }
+  if (!device.manuallyDisconnected) {
+    res.status(409).json({ error: `${clientId} was not manually disconnected` });
+    return;
+  }
+  pool.reconnectDevice(clientId);
+  res.json({ ok: true });
 });

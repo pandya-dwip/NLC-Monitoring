@@ -6,6 +6,8 @@ export interface DeviceState {
   clientId: string;
   nlcId: string;
   status: ConnectionStatus;
+  /** True after a manual disconnect until explicitly reconnected -- no auto-reconnect while set. */
+  manuallyDisconnected: boolean;
   lightState: 0 | 1;
   /** Brightness percentage (0-100). 100 = full ON, 0 = OFF, 1-99 = dimmed. */
   dimLevel: number;

@@ -89,6 +89,44 @@ export function renderTelemetry(
   return payload;
 }
 
+/**
+ * One-off "going offline" payload for a manual disconnect (Device History page / API) --
+ * explicitly reports light-off as the device's last known values, rather than leaving
+ * ThingsBoard's Latest Telemetry frozen at whatever it was mid-tick. Does not advance
+ * elapsed-time energy counters (not a scheduled publish) and does not re-derive the
+ * fleet's on/dim/off assignment (this is a deliberate override to off).
+ *
+ * Does NOT set communicationFailure=1 here -- confirmed via a raw MQTT publish bypassing
+ * this app entirely that ThingsBoard's rule chain silently overrides any self-reported
+ * communicationFailure back to 0 on a live message (logically: a message that arrives
+ * disproves its own "failure" claim). It's computed server-side from actual silence, and
+ * will flip to 1 on its own once this device has been quiet long enough -- no payload we
+ * send can make it show 1 while still being received.
+ */
+export function renderOfflinePayload(state: DeviceState): TelemetryPayload {
+  state.lightState = 0;
+  state.dimLevel = 0;
+  state.lastCurrentAmps = 0;
+  state.lastActivePowerW = 0;
+
+  const payload = cloneTemplate();
+  resolveTimestamp(payload);
+
+  payload['NLCId'] = state.nlcId;
+  setPath(payload, 'values.supplyVoltage', roundTo(state.voltageBaseline, 3));
+  setPath(payload, 'values.supplyCurrent', 0);
+  setPath(payload, 'values.activePower', 0);
+  setPath(payload, 'values.CumKwh', roundTo(state.cumKwh, 5));
+  setPath(payload, 'values.cum_kWh', roundTo(state.cumKwh, 5));
+  setPath(payload, 'values.Daily_kWh', roundTo(state.dailyKwh, 5));
+  setPath(payload, 'values.operatingHours', roundTo(state.operatingHours, 2));
+  setPath(payload, 'values.actualLightState', 0);
+  setPath(payload, 'values.lampStatus', 0);
+  setPath(payload, 'values.feedbacklightcommand.state.value', 0);
+
+  return payload;
+}
+
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }

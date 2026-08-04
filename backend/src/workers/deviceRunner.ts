@@ -144,6 +144,14 @@ export function runDeviceRunner(io: DeviceRunnerIo): void {
         io.post({ type: 'stopped', workerId });
         break;
 
+      case 'disconnect-device':
+        manager?.disconnectDevice(msg.clientId);
+        break;
+
+      case 'reconnect-device':
+        manager?.reconnectDevice(msg.clientId);
+        break;
+
       case 'shutdown':
         manager?.stop();
         if (flushTimer) clearInterval(flushTimer);

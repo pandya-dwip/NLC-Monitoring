@@ -9,7 +9,12 @@ export type MainToWorkerMessage =
   | { type: 'stop' }
   | { type: 'pause' }
   | { type: 'resume' }
-  | { type: 'shutdown' };
+  | { type: 'shutdown' }
+  // Broadcast to every unit; only the one owning `clientId` (if any) acts on it -- the
+  // primary process doesn't track per-device shard ownership, so it's simplest to let each
+  // unit self-select via its own ConnectionManager.clients map rather than routing directly.
+  | { type: 'disconnect-device'; clientId: string }
+  | { type: 'reconnect-device'; clientId: string };
 
 export interface CommandReceivedEvent {
   command: IncomingCommand;

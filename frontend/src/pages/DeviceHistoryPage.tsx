@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import { History, Radio, Terminal } from 'lucide-react';
-import { Card, Input } from '@heroui/react';
+import { History, PlugZap, Radio, Terminal, Unplug } from 'lucide-react';
+import { Button, Card, Input } from '@heroui/react';
 import { StatTile } from '../components/StatTile';
 import { ConnectionStatusBadge } from '../components/ConnectionStatusBadge';
 import { LightModeBadge } from '../components/LightModeBadge';
@@ -9,6 +9,7 @@ import { useDeviceList } from '../store/useDeviceStore';
 import { useMqttMonitorStore } from '../store/useMqttMonitorStore';
 import { useCommandStore } from '../store/useCommandStore';
 import { useDeviceLightHistoryQuery } from '../hooks/useDeviceLightHistoryQuery';
+import { useDeviceConnectionMutation } from '../hooks/useDeviceConnectionMutation';
 
 const RECENT_LIMIT = 30;
 
@@ -22,6 +23,7 @@ export function DeviceHistoryPage() {
   const commands = useCommandStore((s) => s.commands);
   const [search, setSearch] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const { disconnect, reconnect } = useDeviceConnectionMutation();
 
   const filteredDevices = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -104,12 +106,38 @@ export function DeviceHistoryPage() {
             <div className="flex flex-wrap items-center gap-3">
               <h3 className="text-base font-semibold">{selected.clientId}</h3>
               <ConnectionStatusBadge status={selected.status} />
+              {selected.manuallyDisconnected ? (
+                <span className="text-sm text-muted">(manually disconnected)</span>
+              ) : null}
               <LightModeBadge device={selected} />
               {selected.manualLightOverride ? (
                 <span className="text-sm text-muted">
                   Override until {dayjs(selected.manualLightOverride.expiresAt).format('HH:mm:ss')}
                 </span>
               ) : null}
+              <div className="ml-auto flex gap-2">
+                {selected.manuallyDisconnected ? (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    isDisabled={reconnect.isPending}
+                    onPress={() => reconnect.mutate(selected.clientId)}
+                  >
+                    <PlugZap className="h-4 w-4" aria-hidden />
+                    Reconnect
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    isDisabled={disconnect.isPending || selected.status !== 'connected'}
+                    onPress={() => disconnect.mutate(selected.clientId)}
+                  >
+                    <Unplug className="h-4 w-4" aria-hidden />
+                    Disconnect
+                  </Button>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
