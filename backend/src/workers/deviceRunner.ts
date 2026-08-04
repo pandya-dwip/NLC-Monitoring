@@ -2,7 +2,7 @@ import { ConnectionManager } from '../mqtt/connectionManager';
 import type { DeviceState } from '../models/device';
 import type { MqttMessageEvent } from '../mqtt/deviceClient';
 import type { CommandReceivedEvent, MainToWorkerMessage, WorkerToMainMessage } from '../models/workerMessages';
-import type { IncomingCommand } from '../models/command';
+import type { CommandStateChange, IncomingCommand } from '../models/command';
 
 const FLUSH_INTERVAL_MS = 500;
 const MAX_MQTT_EVENTS_PER_FLUSH = 500;
@@ -110,8 +110,9 @@ export function runDeviceRunner(io: DeviceRunnerIo): void {
             command: IncomingCommand,
             latencyMs: number,
             response: { topic: string; payload: unknown } | null,
+            stateChange: CommandStateChange | null,
           ) => {
-            commandBuffer.push({ command, latencyMs, response });
+            commandBuffer.push({ command, latencyMs, response, stateChange });
           },
         );
 

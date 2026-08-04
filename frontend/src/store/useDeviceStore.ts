@@ -30,5 +30,8 @@ export const useDeviceStore = create<DeviceStoreState>((set) => ({
  */
 export function useDeviceList(): DeviceState[] {
   const devices = useDeviceStore((s) => s.devices);
-  return useMemo(() => [...devices.values()], [devices]);
+  return useMemo(
+    () => [...devices.values()].sort((a, b) => a.clientId.localeCompare(b.clientId, undefined, { numeric: true })),
+    [devices],
+  );
 }

@@ -7,9 +7,15 @@ export interface DeviceState {
   nlcId: string;
   status: ConnectionStatus;
   lightState: 0 | 1;
+  /** Brightness percentage (0-100). 100 = full ON, 0 = OFF, 1-99 = dimmed. */
+  dimLevel: number;
   cumKwh: number;
+  /** Resets to 0 at local midnight. */
+  dailyKwh: number;
+  dailyKwhDate: string;
   operatingHours: number;
   voltageBaseline: number;
+  ratedWattage: number;
   lastPublishAt: number | null;
   lastCommandAt: number | null;
   lastLatencyMs: number | null;
@@ -18,9 +24,17 @@ export interface DeviceState {
   messagesReceived: number;
   publishFailures: number;
   errors: number;
-  manualLightOverride: { value: 0 | 1; expiresAt: number } | null;
+  manualLightOverride: { value: 0 | 1; dimLevel: number; expiresAt: number } | null;
   lastCurrentAmps: number;
   lastActivePowerW: number;
   hwVersion: string;
   swVersion: string;
+}
+
+export type LightMode = 'on' | 'dim' | 'off';
+
+/** Matches the exact ON/OFF/DIM contract the ThingsBoard dashboard widgets use. */
+export function classifyLightMode(device: Pick<DeviceState, 'lightState' | 'dimLevel'>): LightMode {
+  if (device.lightState === 0) return 'off';
+  return device.dimLevel >= 100 ? 'on' : 'dim';
 }

@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { Activity, Gauge, LayoutDashboard, Radio, Terminal } from 'lucide-react';
+import { Activity, Gauge, History, LayoutDashboard, Radio, Terminal } from 'lucide-react';
 import { SocketConnectionIndicator } from '../components/SocketConnectionIndicator';
 import { SimulationControls } from '../components/SimulationControls';
 import { ExportButtons } from '../components/ExportButtons';
@@ -8,6 +8,7 @@ import { ThemeToggle } from '../components/ThemeToggle';
 const NAV_ITEMS = [
   { to: '/', label: 'Overview', icon: LayoutDashboard, end: true },
   { to: '/devices', label: 'Devices', icon: Gauge, end: false },
+  { to: '/device-history', label: 'Device History', icon: History, end: false },
   { to: '/mqtt-monitor', label: 'MQTT Monitor', icon: Radio, end: false },
   { to: '/commands', label: 'Commands', icon: Terminal, end: false },
   { to: '/charts', label: 'Charts', icon: Activity, end: false },

@@ -1,5 +1,5 @@
 import type { DeviceCredentials, DeviceState } from './device';
-import type { IncomingCommand } from './command';
+import type { CommandStateChange, IncomingCommand } from './command';
 import type { MqttMessageEvent } from '../mqtt/deviceClient';
 
 /** Main thread -> worker */
@@ -16,6 +16,8 @@ export interface CommandReceivedEvent {
   latencyMs: number;
   /** The ack/response published back for this command, if any (null for e.g. attribute updates). */
   response: { topic: string; payload: unknown } | null;
+  /** What the command actually changed on the device, if anything. */
+  stateChange: CommandStateChange | null;
 }
 
 /**

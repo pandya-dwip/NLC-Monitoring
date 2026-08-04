@@ -26,6 +26,14 @@ This repository is being built in phases:
   or any multi-host infrastructure. `CLUSTER_MODE=false` (default) keeps the original
   `worker_threads` behavior unchanged. A true multi-host/Redis-backed cluster remains out of scope
   -- see Roadmap.
+- **Phase 5 -- ThingsBoard payload/dashboard parity + device provisioning (done)**: the telemetry
+  shape, fault-flag set, and command handling were brought in line with a real ThingsBoard tenant's
+  dashboards and device widgets (reverse-engineered from a live dashboard export) -- see
+  [ThingsBoard payload/dashboard compatibility](#thingsboard-payloaddashboard-compatibility) below.
+  `automation/` (Playwright) provisions MQTT Basic credentials on ThingsBoard for every device in
+  `devices.json`, and `backend/scripts/import-devices.ts` generates `devices.json` (with per-device
+  `ratedWattage`) from a CSV export. The frontend gained a **Device History** page (master-detail:
+  full stats + recent activity per device) and Light-Mode/Status filters on the Devices page.
 
 ## Architecture
 
@@ -38,7 +46,7 @@ flowchart LR
 
     subgraph FE["frontend/ -- React dashboard"]
         Stores["Zustand stores\n(devices, mqtt, commands, metrics)"]
-        UI["Pages: Overview, Devices,\nMQTT Monitor, Commands, Charts"]
+        UI["Pages: Overview, Devices, Device History,\nMQTT Monitor, Commands, Charts"]
         Stores --> UI
     end
 
@@ -67,13 +75,16 @@ backend/
     models/        Device, Telemetry, Command, Metrics, StressMode, worker message types
     logger/        pino factory -- mqtt.log, commands.log, errors.log, system.log, performance.log
     telemetry/      payload-template loader, AUTO_TIMESTAMP substitution, randomization engine
-    simulator/      per-device behavior model (voltage/current/energy/day-night/failures),
+    simulator/      per-device behavior model (voltage/current/energy/on-dim-off/failures),
                     stress-mode scheduler -- all ten SIMULATION_MODE strategies (constant,
                     ramp-up, ramp-down, random-interval, spike, burst, peak-hour, night,
                     scheduled, chaos) in simulator/stressModes/index.ts
     mqtt/          per-device MQTT client wrapper (its own clientId/username/password --
                     no shared client), connection manager, publish/latency tracking
-    rpc/           parses RPC/attribute messages, applies simulated side effects, builds acks
+    rpc/           parses RPC (v1/devices/me/rpc/request/+) and shared-attribute commands
+                    (v1/devices/me/attributes -- e.g. ThingsBoard's built-in Turn On/Off/Dim
+                    widget), applies simulated side effects, builds acks/response, and computes
+                    a stateChange diff (what the command actually changed) for the dashboard
     workers/       execution pool -- each unit owns a shard of devices and runs MQTT + simulator
                     for them; a FleetStore aggregates everything for the API. BaseExecutionPool
                     (executionPoolBase.ts) holds all the orchestration logic, transport-agnostic
@@ -84,14 +95,21 @@ backend/
     websocket/      Socket.IO server -- push-only device:status / mqtt:message /
                     command:received / metrics:snapshot events
     api/           Express REST -- health, config, devices, metrics, simulation control, export
-    utils/         device loading/selection, random helpers, CSV, dot-path get/set
+    utils/         device loading/selection, random helpers, csvParser.ts (RFC4180), dot-path get/set
     app.ts         Express app assembly
     server.ts      entrypoint: HTTP + Socket.IO + worker pool bootstrap + graceful shutdown
-  devices.json          device credentials (clientId/userName/password per device)
+  devices.json          device credentials (clientId/userName/password/ratedWattage per device)
   payload-template.json telemetry shape + randomization ranges/failure probabilities
   .env.example           every configurable setting, documented
-  scripts/local-broker.ts  a throwaway local MQTT broker for development (no real
-                            ThingsBoard broker required to test the simulator logic)
+  scripts/local-broker.ts   a throwaway local MQTT broker for development (no real
+                             ThingsBoard broker required to test the simulator logic)
+  scripts/import-devices.ts generates devices.json from a CSV export (device name + Wattage
+                             columns) -- `npm run import:devices` (see "Generating devices.json")
+
+automation/     Playwright utility (separate npm project, not part of the backend/frontend
+                workspaces) that logs into ThingsBoard once and configures MQTT Basic
+                credentials (clientId/userName/password) for every device in
+                backend/devices.json -- see "Provisioning devices on ThingsBoard"
 
 frontend/
   src/
@@ -102,13 +120,18 @@ frontend/
     hooks/          useSocketSubscriptions (the only place that touches the socket) + React Query
                     hooks for initial hydration (devices/mqtt/commands/metrics/config) and
                     simulation control mutations (start/stop/scale)
-    components/     StatTile, ConnectionStatusBadge, SocketConnectionIndicator,
-                    SimulationControls, ExportButtons, ThemeToggle
+    components/     StatTile, ConnectionStatusBadge, LightModeBadge (On/Dim NN%/Off),
+                    SocketConnectionIndicator, SimulationControls, ExportButtons, ThemeToggle
     charts/         TimeSeriesChart.tsx -- one reusable Recharts line chart, single axis only
     tables/         DataTable.tsx (shared search/sort/pagination chrome over a plain <table>,
-                    driven by TanStack Table's headless row model) + DeviceTable/MqttMonitorTable/
-                    CommandsTable column definitions
-    pages/          OverviewPage, DevicesPage, MqttMonitorPage, CommandsPage, ChartsPage
+                    driven by TanStack Table's headless row model) + DeviceTable (Light
+                    Mode/Status filters, energy/wattage columns) / MqttMonitorTable /
+                    CommandsTable (expandable payload/response, a "Changes" column showing the
+                    command's stateChange diff) column definitions
+    pages/          OverviewPage, DevicesPage, DeviceHistoryPage (master-detail: searchable
+                    device list -> full stats + recent MQTT/command activity for the selected
+                    device, from the same live ring buffers as the MQTT Monitor/Commands pages --
+                    not a persisted long-term log), MqttMonitorPage, CommandsPage, ChartsPage
     layouts/        DashboardLayout.tsx -- header (nav, sim status, controls, export, theme) + outlet
   .env.example      VITE_API_URL, VITE_SOCKET_URL
 ```
@@ -118,17 +141,32 @@ frontend/
 1. `ConnectionManager` (one per worker thread) staggers device startup in `DEVICE_BATCH_SIZE`
    batches and schedules each device's next publish via a `StressModeStrategy`
    (`SIMULATION_MODE`).
-2. On each tick, `simulator/deviceBehavior.ts` advances that device's simulated physical state
-   (voltage jitter, current/power derived from light state, monotonically increasing energy
-   counters, a day/night light schedule) and renders a payload from `payload-template.json`.
+2. On each tick, `simulator/deviceBehavior.ts` advances that device's simulated physical state and
+   renders a payload from `payload-template.json`. Absent a manual override, each device's
+   on/dim/off mode is deterministic per `clientId` + the current 5-minute time window (a
+   MurmurHash3-style hash, `assignLightMode` in `models/device.ts`) -- fleet-wide this holds a
+   ~50% on / 25% dim / 25% off split that **reshuffles which devices are in which bucket every 5
+   minutes**, rather than a fixed day/night schedule or a permanently-fixed per-device assignment.
+   `dimLevel` (0-100, the brightness percentage) drives `activePower`/`supplyCurrent` scaled by
+   that device's own `ratedWattage` (from `devices.json`, sourced from the CSV's Wattage column),
+   so different devices draw genuinely different, realistic power -- not one shared constant.
+   Voltage jitters continuously; energy counters (`CumKwh`/`cum_kWh`, lifetime; `Daily_kWh`,
+   resets at local midnight) only ever accumulate.
 3. `telemetry/randomizer.ts` applies the template's configured ranges/jitter and low-probability
-   failure flags (photocell/lamp/EM faults, communication failures) when `ENABLE_RANDOMIZATION=true`.
+   failure flags (photocell/lamp/EM/RTC/relay faults, communication failures, day-burner/last-gasp
+   flags) when `ENABLE_RANDOMIZATION=true`.
 4. The device's own `mqtt.js` client publishes to `MQTT_TOPIC` and tracks publish latency via the
-   QoS ack callback.
-5. Incoming RPC (`v1/devices/me/rpc/request/+`) and attribute topics are parsed in `rpc/`, applied
-   to simulated device state (e.g. a `setLightState`/`setDimLevel` RPC sets a **manual override**
-   that takes precedence over the day/night schedule until it expires -- mirroring the payload's
-   own `feedbacklightcommand.expiration` semantics), acknowledged back to the broker, and logged.
+   QoS ack callback. `lampStatus` publishes `1` whenever a device is actively sending data
+   (mirroring real hardware: "controller is powered and communicating" -- distinct from whether the
+   lamp is lit, which is `actualLightState`/`dimLevel`).
+5. Incoming commands are parsed in `rpc/` from two different shapes ThingsBoard actually sends --
+   RPC (`v1/devices/me/rpc/request/+`, e.g. `setLightState`/`setDimLevel`) and shared attributes
+   (`v1/devices/me/attributes`, the shape ThingsBoard's built-in Turn On/Off/Dim device widget
+   pushes: `targetCommand`/`targetLightCommand` with a `LevelState` value and its own
+   `expiration`, or `IntegerState: -1` to cancel). Either path sets a **manual override** that
+   takes precedence over the fleet's on/dim/off assignment until it expires, acknowledged back to
+   the broker (RPC only) and logged, with a `stateChange` diff (what actually changed, e.g.
+   `dimLevel 0->46`) attached to the command event for the dashboard's Commands page.
 6. Each worker batches device-status/MQTT-traffic/command events and flushes them to the main
    thread every 500ms (not per-message) so thousands of devices don't flood the main event loop.
    The main thread's `FleetStore` aggregates everything; the REST API and Socket.IO layer both
@@ -221,9 +259,11 @@ values. Key groups:
 | Logging | `LOG_LEVEL` |
 | Metrics/export | `METRICS_INTERVAL`, `CSV_EXPORT`, `JSON_EXPORT` |
 
-`devices.json` holds device credentials (`clientId`, `userName`, `password` per device, each
-connecting independently -- exactly like real hardware). It supports any number of devices; how
-many actually run is controlled purely by `DEVICE_LIMIT` and `DEVICE_SELECTION_MODE`
+`devices.json` holds device credentials (`clientId`, `userName`, `password`, optional
+`ratedWattage` per device, each connecting independently -- exactly like real hardware).
+`ratedWattage` (falls back to 70W if absent) drives that device's simulated power/current draw --
+see "Generating `devices.json` from a CSV" under Device Provisioning. It supports any number of
+devices; how many actually run is controlled purely by `DEVICE_LIMIT` and `DEVICE_SELECTION_MODE`
 (sequential/random/shuffle/round-robin/random-batch) -- no code changes needed to go from 10 to
 10,000+ devices.
 
@@ -242,7 +282,7 @@ applied per publish tick.
 | `spike` | Base rate normally; every `SPIKE_INTERVAL_MS`, a `SPIKE_DURATION_MS` window publishes `SPIKE_FACTOR`x faster. |
 | `burst` | Fires `BURST_SIZE` messages back-to-back, then idles for `BURST_QUIET_MS`, repeating. |
 | `peak-hour` | Publishes `PEAK_HOUR_RATE_MULTIPLIER`x faster during `[PEAK_HOUR_START, PEAK_HOUR_END)`. |
-| `night` | Publishes `NIGHT_RATE_MULTIPLIER`x faster during 18:00-06:00 (same boundary the day/night lighting behavior uses). |
+| `night` | Publishes `NIGHT_RATE_MULTIPLIER`x faster during 18:00-06:00. Independent of the device on/dim/off model below -- this only affects publish *rate*, not any device's light state. |
 | `scheduled` | Combines peak-hour and night into one full day/night rate curve. |
 | `chaos` | Interval randomized each tick between `base * CHAOS_MIN_FACTOR` and `base * CHAOS_MAX_FACTOR` -- wider and wilder than `random-interval`. |
 
@@ -250,6 +290,37 @@ applied per publish tick.
 fleet spikes/bursts and quiets in sync -- a synchronized fleet-wide pattern is the point of a
 load-test spike/burst mode, and it produces a much more distinct, observable effect on the broker
 than independent per-device timers would.
+
+## ThingsBoard payload/dashboard compatibility
+
+The telemetry shape, fault-flag set, and on/dim/off model were reverse-engineered against a real
+ThingsBoard tenant's dashboards (an exported dashboard's widget definitions) and a downstream
+EnergySavingsService, not designed in isolation -- a few things are non-obvious as a result:
+
+- **`lampStatus` is always `1`** whenever a device is actively publishing -- it means "controller
+  is powered and communicating," mirroring real hardware, not "is the lamp lit." Whether the lamp
+  is on/dim/off is entirely carried by `actualLightState` (0-100, see below). This was a deliberate
+  reversal mid-project (see git history on `simulator/deviceBehavior.ts`) after first tying
+  `lampStatus` to the light state and then to the real device widget contract -- if this needs to
+  change again, grep the dashboard's `entitiesQuery` widget filters first, not just the telemetry.
+- **on/dim/off classification contract** (matches the dashboard's own widget filters exactly):
+  `actualLightState == 100` -> ON, `lampStatus == 0` -> OFF (never true in this simulator, see
+  above -- the dashboard's OFF bucket is intentionally unreachable here), `0 < actualLightState <
+  100` -> DIM.
+- **Duplicate/aliased telemetry keys** exist because different consumers expect different casing:
+  `CumKwh` (original) and `cum_kWh` (what the EnergySavingsService reads) carry the same value;
+  `Daily_kWh` (note the casing -- lowercase `k`) is a separate midnight-resetting counter, not a
+  rename of the lifetime one.
+- **`dailyConsumption`/`weeklyConsumption`/`monthlyConsumption`** are telemetry keys real dashboard
+  widgets read, but they're computed and written *by* the EnergySavingsService (from `cum_kWh`
+  deltas), not something this simulator publishes directly.
+- **`Wattage`** is published once per connection as a client-side MQTT **attribute**
+  (`v1/devices/me/attributes`, not telemetry) -- the EnergySavingsService needs it to compute
+  expected consumption, and it's a static device characteristic, not a reading.
+- **Command handling** covers both shapes ThingsBoard actually sends for light control (RPC and
+  the shared-attribute `targetCommand`/`targetLightCommand` the built-in device widget uses) -- see
+  step 5 of "How a publish tick works" above. A command that doesn't match either shape (an
+  `Invoke`/`currentTime` attribute sync, for instance) is safely ignored, not an error.
 
 ## Running
 
@@ -299,17 +370,59 @@ file server pointed at the deployed backend's `VITE_API_URL`/`VITE_SOCKET_URL`.
 - `GET http://localhost:4000/api/devices` -- paginated device table (status, voltage, latency, counters...)
 - `GET http://localhost:4000/api/metrics/snapshot` -- live fleet metrics
 - `GET http://localhost:4000/api/mqtt/messages` / `GET http://localhost:4000/api/commands` -- recent
-  traffic/command history (commands include the correlated `response` payload, if any)
+  traffic/command history (commands include the correlated `response` payload, if any, and a
+  `stateChange` diff of what the command actually changed on the device)
 - `POST http://localhost:4000/api/simulation/start|stop|pause|resume|scale`
 - `GET http://localhost:4000/api/export/csv|json|metrics|logs`
 - Socket.IO on `ws://localhost:4001` -- subscribe to `device:status`, `mqtt:message`,
   `command:received`, `metrics:snapshot` (push-only, no polling)
 - Structured logs land in `backend/logs/{mqtt,commands,errors,system,performance}.log`
 
+## Device provisioning
+
+Two separate concerns: getting device *records* into `devices.json`, and getting matching MQTT
+*credentials* configured on the ThingsBoard side so the simulator can actually authenticate.
+
+### Generating `devices.json` from a CSV
+
+```bash
+cd backend
+npm run import:devices                      # reads ../NLC Test Data.csv by default
+npm run import:devices -- --csv path/to.csv  # or point at a different file
+```
+
+Expects a `Name` (or `Device Name`) column for `clientId`, and an optional `Wattage` column that
+becomes each device's `ratedWattage` (drives its simulated power/current draw). Validates and
+dedupes rows, skips/warns on empty names or invalid wattage, and overwrites `devices.json` with
+`{clientId, userName: "NLC", password: "cimcon", ratedWattage?}` entries. To add more devices
+later without re-running the whole import, append entries to `devices.json` directly in the same
+shape (see the entries already there for the exact format).
+
+### Provisioning MQTT credentials on ThingsBoard
+
+`devices.json` having the right credentials locally doesn't mean ThingsBoard will accept them --
+each device entity on ThingsBoard needs its MQTT Basic credentials (Client ID/Username/Password)
+configured to match. `automation/` is a Playwright script that does this for every device in
+`backend/devices.json`, one after another, logging in once:
+
+```bash
+cd automation
+cp .env.example .env   # TB_BASE_URL/TB_USERNAME/TB_PASSWORD -- point at your ThingsBoard instance
+npm install
+npm run configure-credentials                  # every device in devices.json
+npm run configure-credentials -- --start 501   # only device #501 onward (e.g. after adding more)
+npm run configure-credentials -- --start 501 --end 600
+```
+
+Searches each device by exact name, opens Manage Credentials, switches to MQTT Basic only if it
+isn't already, fills in Client ID/Username/Password, and saves. A single device failing (not
+found, UI timeout, etc.) is logged and screenshotted to `automation/screenshots/`, never aborts
+the run -- it always processes every device and reports `N Successful / N Failed` at the end.
+
 ## Scaling / load testing
 
 1. Populate `devices.json` with as many device credentials as you need to simulate (matching your
-   ThingsBoard provisioned devices).
+   ThingsBoard provisioned devices) -- see "Device provisioning" above.
 2. Set `DEVICE_LIMIT` to how many of them should actually run this session.
 3. Tune `WORKER_COUNT` to your CPU core count -- devices are sharded round-robin across workers,
    each worker owning independent MQTT connections.
@@ -323,9 +436,21 @@ file server pointed at the deployed backend's `VITE_API_URL`/`VITE_SOCKET_URL`.
 
 - **`EADDRINUSE` on startup**: another instance (or an orphaned process from a previous run) is
   already bound to `API_PORT`/`SOCKET_PORT`. Stop it or change the port in `.env`.
+- **`npm start` runs stale behavior after you changed `src/` or `.env`**: `npm start` runs
+  `node dist/server.js` -- the *compiled* build, not live source. `.env` is only read once at
+  process startup (`tsx watch` doesn't restart on `.env` changes, it only watches `.ts` files), and
+  `dist/` is only as fresh as your last `npm run build`. If behavior doesn't match what's in
+  `src/`, rebuild (`npm run build`) and restart the process -- don't assume the code is wrong
+  before checking whether it's actually running.
 - **Devices never reach `connected`**: check `MQTT_HOST`/`MQTT_PORT`/`MQTT_PROTOCOL` and that the
-  broker accepts the `clientId`/`userName`/`password` combinations in `devices.json`.
-  `logs/errors.log` will have the underlying MQTT error.
+  broker accepts the `clientId`/`userName`/`password` combinations in `devices.json`. Note that
+  `DeviceClient`'s error handler doesn't currently log the underlying MQTT error to
+  `logs/errors.log` (it only tracks a status flag) -- to see the actual reason, test a device's
+  credentials directly: `node -e "require('mqtt').connect('mqtt://HOST:PORT', {clientId, username,
+  password}).on('connect', () => console.log('ok')).on('error', e => console.log(e.message))"`. A
+  `connack timeout` (TCP connects, broker never acks) usually means the broker/transport is
+  overloaded or down, not a config problem -- a `Connection refused: Not authorized` means bad
+  credentials.
 - **`Configuration validation failed`**: `.env` has an invalid value for one of the typed/enum
   vars (e.g. `MQTT_PROTOCOL` must be one of `mqtt|mqtts|ws|wss`); the console error lists the
   offending field(s).
@@ -334,7 +459,7 @@ file server pointed at the deployed backend's `VITE_API_URL`/`VITE_SOCKET_URL`.
   files directly under `tsx watch`; make sure `tsx` is installed (it's a devDependency) and hasn't
   been pruned.
 
-## Roadmap (Phase 5)
+## Roadmap (Phase 6)
 
 - **True multi-host clustering**: `CLUSTER_MODE` (Phase 4) is single-host only -- a shared state
   layer (e.g. Redis) so multiple *hosts'* `FleetStore`s can aggregate together, a Socket.IO Redis
@@ -348,3 +473,11 @@ file server pointed at the deployed backend's `VITE_API_URL`/`VITE_SOCKET_URL`.
   pause/resume cycle -- a small follow-up if that matters in practice.
 - Bundle size: the frontend production build is a single ~245KB gzipped chunk (HeroUI + Recharts +
   TanStack Table). Fine for this use case, but code-splitting by route would help if it grows.
+- `dbCount` (a "day-burner" event *count* some dashboard widgets read) isn't published -- unlike
+  the other fault flags added in Phase 5, its exact semantics weren't clear enough to fake
+  confidently; add it once someone can specify what it should count.
+- Device History's "recent activity" is genuinely just a window into the shared, fleet-wide,
+  in-memory ring buffers (500 MQTT events / 200 commands total, not per-device) -- with hundreds of
+  devices, any single device's own recent activity can scroll out of that window within a minute or
+  two. True long-term per-device history would need a real time-series store; not built
+  speculatively.

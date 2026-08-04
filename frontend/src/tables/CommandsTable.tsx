@@ -4,9 +4,43 @@ import dayjs from 'dayjs';
 import { Chip } from '@heroui/react';
 import { DataTable } from './DataTable';
 import { useCommandStore } from '../store/useCommandStore';
-import type { CommandReceivedEvent } from '../types/command';
+import type { CommandReceivedEvent, CommandStateChange } from '../types/command';
 
 const columnHelper = createColumnHelper<CommandReceivedEvent>();
+
+/** Plain-English summary of what a command actually changed on the device. */
+function formatStateChange(change: CommandStateChange | null): string {
+  if (!change) return '—';
+  const parts: string[] = [];
+  if (change.lightState) {
+    parts.push(`Light ${change.lightState.from ? 'ON' : 'OFF'} → ${change.lightState.to ? 'ON' : 'OFF'}`);
+  }
+  if (change.dimLevel) {
+    parts.push(`Dim ${change.dimLevel.from}% → ${change.dimLevel.to}%`);
+  }
+  if (change.overrideExpiresAt !== undefined) {
+    parts.push(
+      change.overrideExpiresAt === null
+        ? 'Override cleared'
+        : `Override until ${dayjs(change.overrideExpiresAt).format('HH:mm:ss')}`,
+    );
+  }
+  return parts.join(', ');
+}
+
+/** Expandable full JSON -- native <details>, no modal/dependency needed. */
+function JsonDetails({ value, label }: { value: unknown; label: string }) {
+  if (value === null || value === undefined) return <span className="text-muted">—</span>;
+  const json = JSON.stringify(value, null, 2);
+  return (
+    <details>
+      <summary className="cursor-pointer text-accent hover:underline">{label}</summary>
+      <pre className="mt-1 max-w-md whitespace-pre-wrap break-all rounded bg-surface-secondary p-2 font-mono text-xs">
+        {json}
+      </pre>
+    </details>
+  );
+}
 
 const columns = [
   columnHelper.accessor((row) => row.command.receivedAt, {
@@ -35,30 +69,19 @@ const columns = [
     id: 'topic',
     header: 'Topic',
   }),
-  columnHelper.accessor((row) => JSON.stringify(row.command.payload), {
+  columnHelper.display({
     id: 'payload',
     header: 'Payload',
-    cell: (info) => (
-      <span className="block max-w-xs truncate font-mono text-xs" title={info.getValue()}>
-        {info.getValue()}
-      </span>
-    ),
+    cell: (info) => <JsonDetails value={info.row.original.command.payload} label="view" />,
   }),
   columnHelper.accessor('latencyMs', {
     header: 'Execution Time',
     cell: (info) => `${info.getValue()} ms`,
   }),
-  columnHelper.accessor((row) => (row.response ? JSON.stringify(row.response.payload) : ''), {
+  columnHelper.display({
     id: 'response',
     header: 'Response',
-    cell: (info) =>
-      info.getValue() ? (
-        <span className="block max-w-xs truncate font-mono text-xs" title={info.getValue()}>
-          {info.getValue()}
-        </span>
-      ) : (
-        <span className="text-muted">—</span>
-      ),
+    cell: (info) => <JsonDetails value={info.row.original.response?.payload} label="view" />,
   }),
   columnHelper.accessor((row) => (row.response ? 'acknowledged' : 'no response'), {
     id: 'status',
@@ -67,6 +90,13 @@ const columns = [
       <Chip color={info.getValue() === 'acknowledged' ? 'success' : 'default'} variant="soft" size="sm">
         {info.getValue()}
       </Chip>
+    ),
+  }),
+  columnHelper.accessor((row) => formatStateChange(row.stateChange), {
+    id: 'stateChange',
+    header: 'Changes',
+    cell: (info) => (
+      <span className={info.getValue() === '—' ? 'text-muted' : ''}>{info.getValue()}</span>
     ),
   }),
 ];

@@ -16,7 +16,7 @@ interface DeviceCredentials {
 }
 
 const config = {
-  baseUrl: process.env['TB_BASE_URL'] ?? 'http://203.88.135.133:8080',
+  baseUrl: process.env['TB_BASE_URL'] ?? 'http://199.199.50.111:8080',
   username: process.env['TB_USERNAME'] ?? 'nlcqatest@thingsboard.org',
   password: process.env['TB_PASSWORD'] ?? 'cimcon',
   devicesJsonPath: path.resolve(__dirname, process.env['DEVICES_JSON_PATH'] ?? '../backend/devices.json'),

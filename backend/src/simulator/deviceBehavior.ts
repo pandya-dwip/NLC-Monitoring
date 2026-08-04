@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import type { DeviceState } from '../models/device';
+import { assignLightMode, type DeviceState } from '../models/device';
 import type { TelemetryPayload } from '../models/telemetry';
 import { cloneTemplate, resolveTimestamp } from '../telemetry/payloadTemplate';
 import { applyRandomization } from '../telemetry/randomizer';
@@ -10,6 +10,8 @@ const RATED_POWER_FACTOR = 0.98;
 /** Power fluctuates naturally around each device's rated wattage instead of holding dead flat. */
 const POWER_JITTER_FRACTION = 0.05;
 const DIM_LEVEL_PERCENT = 50;
+/** How often the fleet's on/dim/off assignment reshuffles (per device, deterministically). */
+const FLEET_MODE_WINDOW_MS = 5 * 60 * 1000;
 
 /**
  * Advances one device's simulated physical state by `elapsedMs` and renders
@@ -31,8 +33,10 @@ export function renderTelemetry(
     }
   }
   if (!state.manualLightOverride) {
-    state.lightState = state.lightMode === 'off' ? 0 : 1;
-    state.dimLevel = state.lightMode === 'on' ? 100 : state.lightMode === 'dim' ? DIM_LEVEL_PERCENT : 0;
+    const windowIndex = Math.floor(Date.now() / FLEET_MODE_WINDOW_MS);
+    const mode = assignLightMode(`${state.clientId}:${windowIndex}`);
+    state.lightState = mode === 'off' ? 0 : 1;
+    state.dimLevel = mode === 'on' ? 100 : mode === 'dim' ? DIM_LEVEL_PERCENT : 0;
   }
 
   const voltageDrift = randomFloat(-1.5, 1.5);

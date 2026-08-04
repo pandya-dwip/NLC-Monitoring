@@ -21,8 +21,9 @@ npm run dev              # tsx watch, hot-reloads on save
 |---|---|
 | `npm run dev` | `tsx watch src/server.ts` |
 | `npm run broker:dev` | Local throwaway MQTT broker (`scripts/local-broker.ts`), no ThingsBoard required |
+| `npm run import:devices` | Generate `devices.json` from a CSV (`scripts/import-devices.ts`) -- see root README's "Device provisioning" |
 | `npm run build` | `tsc -p tsconfig.json` -> `dist/` |
-| `npm start` | Run the compiled build (`node dist/server.js`) |
+| `npm start` | Run the compiled build (`node dist/server.js`) -- run `npm run build` first, it does *not* rebuild automatically |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` / `lint:fix` | ESLint |
 | `npm run format` | Prettier |

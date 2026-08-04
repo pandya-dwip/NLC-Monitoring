@@ -39,7 +39,7 @@ function toPayloadPreview(body: string | Buffer): string {
  * Wraps a single independent MQTT.js connection for one simulated device,
  * using that device's own clientId/username/password (no shared client).
  * Emits: 'status' (DeviceState), 'mqtt-message' (MqttMessageEvent),
- * 'command' (IncomingCommand, latencyMs).
+ * 'command' (IncomingCommand, latencyMs, response, stateChange).
  */
 export class DeviceClient extends EventEmitter {
   readonly state: DeviceState;
@@ -141,11 +141,11 @@ export class DeviceClient extends EventEmitter {
     const command = parseIncomingMessage(this.creds.clientId, topic, payload);
     if (!command) return;
 
-    const { responseTopic, responsePayload } = applyCommandAndBuildResponse(command, this.state);
+    const { responseTopic, responsePayload, stateChange } = applyCommandAndBuildResponse(command, this.state);
     const latencyMs = Date.now() - command.receivedAt;
     const response =
       responseTopic && responsePayload ? { topic: responseTopic, payload: responsePayload } : null;
-    this.emit('command', command satisfies IncomingCommand, latencyMs, response);
+    this.emit('command', command satisfies IncomingCommand, latencyMs, response, stateChange);
 
     if (response) {
       this.publish(response.topic, JSON.stringify(response.payload), false);

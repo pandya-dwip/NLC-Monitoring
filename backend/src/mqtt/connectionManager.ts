@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { config } from '../config';
 import type { DeviceCredentials, DeviceState } from '../models/device';
-import type { IncomingCommand } from '../models/command';
+import type { CommandStateChange, IncomingCommand } from '../models/command';
 import { DeviceClient, type MqttMessageEvent } from './deviceClient';
 import { renderTelemetry } from '../simulator/deviceBehavior';
 import { createStressModeStrategy } from '../simulator/stressModes';
@@ -112,8 +112,12 @@ export class ConnectionManager extends EventEmitter {
     client.on('mqtt-message', (evt: MqttMessageEvent) => this.emit('mqtt-message', evt));
     client.on(
       'command',
-      (cmd: IncomingCommand, latencyMs: number, response: { topic: string; payload: unknown } | null) =>
-        this.emit('command', cmd, latencyMs, response),
+      (
+        cmd: IncomingCommand,
+        latencyMs: number,
+        response: { topic: string; payload: unknown } | null,
+        stateChange: CommandStateChange | null,
+      ) => this.emit('command', cmd, latencyMs, response, stateChange),
     );
 
     client.connect();

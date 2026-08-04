@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { OverviewPage } from './pages/OverviewPage';
 import { DevicesPage } from './pages/DevicesPage';
+import { DeviceHistoryPage } from './pages/DeviceHistoryPage';
 import { MqttMonitorPage } from './pages/MqttMonitorPage';
 import { CommandsPage } from './pages/CommandsPage';
 import { ChartsPage } from './pages/ChartsPage';
@@ -33,6 +34,7 @@ function App() {
             <Route element={<DashboardLayout />}>
               <Route index element={<OverviewPage />} />
               <Route path="devices" element={<DevicesPage />} />
+              <Route path="device-history" element={<DeviceHistoryPage />} />
               <Route path="mqtt-monitor" element={<MqttMonitorPage />} />
               <Route path="commands" element={<CommandsPage />} />
               <Route path="charts" element={<ChartsPage />} />

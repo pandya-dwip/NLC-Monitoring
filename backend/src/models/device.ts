@@ -4,12 +4,23 @@ import { getPath } from '../utils/objectPath';
 /** Fallback for devices.json entries that don't carry a ratedWattage (e.g. hand-written credentials). */
 const DEFAULT_RATED_WATTAGE_W = 70;
 
-/** Deterministic ~50% on / 25% dim / 25% off split across the fleet, stable per clientId. */
-function assignLightMode(clientId: string): 'on' | 'dim' | 'off' {
+/**
+ * Deterministic ~50% on / 25% dim / 25% off split across the fleet. `seed` is
+ * typically `${clientId}:${timeWindowIndex}` so the split reshuffles every
+ * window while staying stable (no flicker) within it -- see deviceBehavior.ts.
+ */
+export function assignLightMode(seed: string): 'on' | 'dim' | 'off' {
   let hash = 0;
-  for (let i = 0; i < clientId.length; i += 1) {
-    hash = (hash * 31 + clientId.charCodeAt(i)) | 0;
+  for (let i = 0; i < seed.length; i += 1) {
+    hash = (hash * 31 + seed.charCodeAt(i)) | 0;
   }
+  // MurmurHash3 finalizer: seeds differing only in a low-order digit (e.g. adjacent
+  // time-window indices) still avalanche into decorrelated buckets, not near-identical ones.
+  hash ^= hash >>> 16;
+  hash = Math.imul(hash, 0x85ebca6b);
+  hash ^= hash >>> 13;
+  hash = Math.imul(hash, 0xc2b2ae35);
+  hash ^= hash >>> 16;
   const bucket = Math.abs(hash) % 100;
   if (bucket < 50) return 'on';
   if (bucket < 75) return 'dim';
@@ -35,8 +46,6 @@ export interface DeviceState {
   lightState: 0 | 1;
   /** Brightness percentage (0-100). 100 = full ON, 0 = OFF, 1-99 = dimmed. Drives actualLightState. */
   dimLevel: number;
-  /** Fixed per-device fleet split (~50% on / 25% dim / 25% off), assigned once at startup. */
-  lightMode: 'on' | 'dim' | 'off';
   cumKwh: number;
   /** Resets to 0 at local midnight; accumulates the same way cumKwh does otherwise. */
   dailyKwh: number;
@@ -68,7 +77,6 @@ export function createInitialDeviceState(creds: DeviceCredentials, nlcId: string
     status: 'connecting',
     lightState: 0,
     dimLevel: 0,
-    lightMode: assignLightMode(creds.clientId),
     cumKwh: 1500 + Math.random() * 500,
     dailyKwh: 0,
     dailyKwhDate: '', // forces a reset on the first renderTelemetry() tick
